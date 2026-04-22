@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windy Clone Simulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="container">
+        <canvas id="canvas"></canvas>
+        
+        <div id="controls">
+            <h1>Interactive CFD Simulation</h1>
+            <p class="desc">A realistic 2D fluid solver.</p>
+            <hr>
+            <div class="instructions">
+                <p><strong>Left Click:</strong> Draw Obstacles</p>
+                <p><strong>Right Click:</strong> Erase Obstacles</p>
+            </div>
+            
+            <div class="slider-group">
+                <label>Injector Force (Wind Speed)</label>
+                <input type="range" id="windSpeed" min="0" max="800" value="300">
+            </div>
+            
+            <button onclick="for(let i=0;i<120*120;i++) obstacles[i]=0;">Clear Screen</button>
+        </div>
+    </div>
+    
+    <script src="fluid.js"></script>
+</body>
+</html>

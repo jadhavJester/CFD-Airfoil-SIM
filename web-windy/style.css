@@ -1,0 +1,93 @@
+body {
+    background-color: #03040b;
+    color: #e2e8f0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#container {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+canvas {
+    border: 2px solid #334155;
+    border-radius: 12px;
+    cursor: crosshair;
+    box-shadow: 0 15px 40px rgba(0, 200, 255, 0.15);
+    background-color: #0c0d11;
+}
+
+#controls {
+    background: rgba(15, 23, 42, 0.9);
+    padding: 25px;
+    border-radius: 16px;
+    border: 1px solid #334155;
+    width: 260px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    font-size: 20px;
+    color: #38bdf8;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.desc {
+    color: #94a3b8;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+hr {
+    border-color: #334155;
+    border-bottom: none;
+    margin-bottom: 20px;
+}
+
+.instructions p {
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.slider-group {
+    margin-top: 30px;
+    margin-bottom: 25px;
+}
+
+.slider-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #cbd5e1;
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: #38bdf8;
+}
+
+button {
+    background: #38bdf8;
+    color: #0f172a;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    width: 100%;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: #7dd3fc;
+}
