@@ -44,6 +44,19 @@ Open `web-windy/index.html` in a browser.
 - The flow solver is a stylized 2D visualization, not a validated CFD solver.
 - The lift/drag math is a simplified estimate for interactive feedback.
 
+## Development
+
+Development and test tooling (pytest) is listed separately from the runtime
+dependencies:
+
+```bash
+pip install -r requirements-dev.txt
+python -m pytest
+```
+
+The desktop app entry point is `main.py`; the CFD solver lives in
+`solver.py` and the airfoil geometry/meshing code in `geometry.py`.
+
 ## Project layout
 ```
 virtual-wind-tunnel/
