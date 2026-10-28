@@ -56,6 +56,25 @@ def test_project_zeroes_obstacle_velocity(solver):
     assert (solver.v[solver.obstacles] == 0).all()
 
 
+def test_project_reduces_divergence(solver):
+    rng = np.random.default_rng(1)
+    solver.u[:] = rng.random((30, 40))
+    solver.v[:] = rng.random((30, 40))
+
+    def mean_abs_divergence():
+        h = 1.0 / solver.nx
+        div = np.zeros((30, 40))
+        div[1:-1, 1:-1] = -0.5 * h * (
+            solver.u[1:-1, 2:] - solver.u[1:-1, :-2]
+            + solver.v[2:, 1:-1] - solver.v[:-2, 1:-1]
+        )
+        return np.abs(div[1:-1, 1:-1]).mean()
+
+    before = mean_abs_divergence()
+    solver.project()
+    assert mean_abs_divergence() < before
+
+
 def test_step_runs_and_keeps_shapes(solver):
     solver.step(30.0)
     assert solver.u.shape == (30, 40)
