@@ -42,6 +42,8 @@ def test_invalid_naca_string_raises():
         generate_naca_airfoil("12", 0.0)
     with pytest.raises(ValueError):
         generate_naca_airfoil("00121", 0.0)
+    with pytest.raises(ValueError, match="exactly 4 digits"):
+        generate_naca_airfoil("abcd", 0.0)
 
 
 def test_aoa_rotates_mesh():
