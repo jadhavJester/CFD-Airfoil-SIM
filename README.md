@@ -64,7 +64,10 @@ virtual-wind-tunnel/
   geometry.py
   solver.py
   requirements.txt
+  requirements-dev.txt
   style.css
+  tests/
+  .github/workflows/ci.yml
   web-windy/
     index.html
     style.css
