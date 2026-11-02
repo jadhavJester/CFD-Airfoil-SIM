@@ -61,6 +61,7 @@ The desktop app entry point is `main.py`; the CFD solver lives in
 ```
 virtual-wind-tunnel/
   main.py
+  aerodynamics.py
   geometry.py
   solver.py
   requirements.txt
