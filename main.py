@@ -6,6 +6,7 @@ from pyvistaqt import QtInteractor # type: ignore
 import pyvista as pv # type: ignore
 
 from geometry import generate_naca_airfoil # type: ignore
+from aerodynamics import aero_estimates # type: ignore
 from solver import FluidSolver # type: ignore
 from typing import Any # type: ignore
 
@@ -114,36 +115,15 @@ class WindTunnelApp(QMainWindow):
             print(f"Error: {e}")
             return
         
-        # Aerodynamics Math
-        v_max = speed * 1.5 
-        rho = 1.225
-        p_dyn = 0.5 * rho * (v_max**2 - speed**2)
-        
-        aoa_rad = np.radians(aoa)
-        
-        camber = int(naca[0]) / 100.0 if naca.isdigit() else 0
-        cl_0 = 2 * np.pi * camber * 2 
-        cl = cl_0 + 2 * np.pi * aoa_rad
-        
-        cd_0 = 0.015
-        AR = 6.0 
-        e = 0.8  
-        # Virtual wind tunnels act somewhat like 2D infinite wings (less induced drag)
-        cd = cd_0 + (cl**2) / (np.pi * e * AR * 3.0)
-        S = 1.0  
-        
-        lift = 0.5 * rho * (speed**2) * S * cl
-        drag = 0.5 * rho * (speed**2) * S * cd
-        
-        weight = np.abs(lift) 
-        thrust = np.abs(drag) 
-        
-        self.lbl_vmax.setText(f"{v_max:.2f} m/s")
-        self.lbl_press.setText(f"{p_dyn:.2f} Pa")
-        self.lbl_lift.setText(f"{lift:.2f} N")
-        self.lbl_drag.setText(f"{drag:.2f} N")
-        self.lbl_weight.setText(f"{weight:.2f} N")
-        self.lbl_thrust.setText(f"{thrust:.2f} N")
+        # Aerodynamics estimates (simplified lift/drag model in aerodynamics.py)
+        aero = aero_estimates(naca, aoa, speed)
+
+        self.lbl_vmax.setText(f"{aero['v_max']:.2f} m/s")
+        self.lbl_press.setText(f"{aero['p_dyn']:.2f} Pa")
+        self.lbl_lift.setText(f"{aero['lift']:.2f} N")
+        self.lbl_drag.setText(f"{aero['drag']:.2f} N")
+        self.lbl_weight.setText(f"{aero['weight']:.2f} N")
+        self.lbl_thrust.setText(f"{aero['thrust']:.2f} N")
         
         self.fluid_solver = FluidSolver(airfoil_mesh)
         
