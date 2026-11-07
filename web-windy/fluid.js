@@ -179,6 +179,16 @@ function drawObstacle(e) {
     }
 }
 
+function clearScreen() {
+    // Clear obstacles and all dye: the old inline handler only zeroed
+    // obstacles, leaving the smoke on screen after "Clear Screen".
+    for (let i = 0; i < N * N; i++) {
+        obstacles[i] = 0;
+        density[i] = 0;
+        s[i] = 0;
+    }
+}
+
 function render() {
     let windSpeed = parseFloat(document.getElementById('windSpeed').value);
     
