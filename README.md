@@ -10,7 +10,7 @@ A desktop wind tunnel demo that renders a NACA 4-digit airfoil, visualizes a lig
 - Optional web demo for mouse-drawn obstacles and 2D flow
 
 ## Requirements
-- Python 3.9+
+- Python 3.10+
 - Windows, macOS, or Linux with OpenGL support
 
 Python packages are listed in `requirements.txt`:
