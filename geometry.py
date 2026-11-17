@@ -9,6 +9,12 @@ def generate_naca_airfoil(naca_str, aoa_deg, chord=1.0, span=1.0, num_points=200
         raise ValueError("NACA string must be exactly 4 digits")
     if not naca_str.isdigit():
         raise ValueError("NACA string must be exactly 4 digits")
+    if num_points < 3:
+        raise ValueError("num_points must be at least 3")
+    if chord <= 0:
+        raise ValueError("chord must be positive")
+    if span <= 0:
+        raise ValueError("span must be positive")
 
     m = int(naca_str[0]) / 100.0
     p = int(naca_str[1]) / 10.0

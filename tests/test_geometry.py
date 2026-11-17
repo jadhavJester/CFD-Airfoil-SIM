@@ -53,6 +53,19 @@ def test_invalid_naca_string_raises():
         generate_naca_airfoil("abcd", 0.0)
 
 
+def test_invalid_parameters_raise():
+    # too few points collapses the outline to a single point and extrudes
+    # an empty mesh, so it is rejected instead of failing silently
+    with pytest.raises(ValueError, match="num_points"):
+        generate_naca_airfoil("0012", 0.0, num_points=1)
+    with pytest.raises(ValueError, match="num_points"):
+        generate_naca_airfoil("0012", 0.0, num_points=2)
+    with pytest.raises(ValueError, match="chord"):
+        generate_naca_airfoil("0012", 0.0, chord=0.0)
+    with pytest.raises(ValueError, match="span"):
+        generate_naca_airfoil("0012", 0.0, span=-1.0)
+
+
 def test_aoa_rotates_mesh():
     flat = generate_naca_airfoil("0012", 0.0, num_points=60)
     pitched = generate_naca_airfoil("0012", 10.0, num_points=60)
