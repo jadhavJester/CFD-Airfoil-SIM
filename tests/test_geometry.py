@@ -1,7 +1,14 @@
-"""Smoke tests for geometry.generate_naca_airfoil (NACA 4-digit mesh generation)."""
+"""Smoke tests for geometry.generate_naca_airfoil (NACA 4-digit mesh generation).
+
+PyVista is a heavy optional dependency: these tests skip when it is not
+installed, so ``pytest`` still runs on minimal installs instead of aborting
+the whole suite at collection. CI installs the full runtime requirements,
+so the tests run there.
+"""
 import numpy as np
-import pyvista as pv
 import pytest
+
+pv = pytest.importorskip("pyvista")
 
 from geometry import generate_naca_airfoil
 
