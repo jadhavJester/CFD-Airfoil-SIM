@@ -59,7 +59,7 @@ The desktop app entry point is `main.py`; the CFD solver lives in
 
 ## Project layout
 ```
-virtual-wind-tunnel/
+CFD-Airfoil-SIM/
   main.py
   aerodynamics.py
   geometry.py
