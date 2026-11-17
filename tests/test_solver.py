@@ -1,7 +1,14 @@
-"""Smoke tests for solver.FluidSolver (semi-Lagrangian advection + projection)."""
+"""Smoke tests for solver.FluidSolver (semi-Lagrangian advection + projection).
+
+PyVista is a heavy optional dependency: these tests skip when it is not
+installed, so ``pytest`` still runs on minimal installs instead of aborting
+the whole suite at collection. CI installs the full runtime requirements,
+so the tests run there.
+"""
 import numpy as np
-import pyvista as pv
 import pytest
+
+pv = pytest.importorskip("pyvista")
 
 from solver import FluidSolver
 
