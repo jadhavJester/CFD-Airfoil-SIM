@@ -66,6 +66,22 @@ def test_invalid_parameters_raise():
         generate_naca_airfoil("0012", 0.0, span=-1.0)
 
 
+def test_zero_thickness_naca_raises():
+    # a "00" thickness pair collapses the outline to a flat sheet and
+    # extrudes a degenerate zero-area mesh, so it is rejected instead
+    # of failing silently
+    with pytest.raises(ValueError, match="thickness"):
+        generate_naca_airfoil("0000", 0.0)
+    with pytest.raises(ValueError, match="thickness"):
+        generate_naca_airfoil("4400", 0.0)
+
+
+def test_minimal_thickness_still_builds():
+    mesh = generate_naca_airfoil("0001", 0.0, num_points=60)
+    ys = mesh.points[:, 1]
+    assert ys.max() - ys.min() > 0
+
+
 def test_aoa_rotates_mesh():
     flat = generate_naca_airfoil("0012", 0.0, num_points=60)
     pitched = generate_naca_airfoil("0012", 10.0, num_points=60)
