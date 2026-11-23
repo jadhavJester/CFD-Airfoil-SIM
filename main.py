@@ -13,7 +13,7 @@ from typing import Any # type: ignore
 class WindTunnelApp(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Virtual Wind Tunnel - Dynamic Navier-Stokes Dynamics")
+        self.setWindowTitle("Virtual Wind Tunnel")
         self.resize(1100, 750)
 
         central_widget = QWidget()
@@ -157,7 +157,8 @@ class WindTunnelApp(QMainWindow):
         self.fluid_solver.vis_grid.point_data['Pressure'] = P_field.ravel()
         self.fluid_solver.vis_grid.set_active_scalars('Pressure')
         
-        # Real-time wiggling streamlines computed from dynamic Navier-Stokes velocity array
+        # Streamlines recomputed each frame from the stylized solver's
+        # velocity field (a visualization aid, not a validated CFD solver)
         self.fluid_solver.vis_grid.point_data['Velocity'] = self.fluid_solver.final_vel
         self.fluid_solver.vis_grid.set_active_vectors('Velocity')
         
