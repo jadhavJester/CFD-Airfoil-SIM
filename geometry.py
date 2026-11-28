@@ -22,6 +22,10 @@ def generate_naca_airfoil(naca_str, aoa_deg, chord=1.0, span=1.0, num_points=200
 
     if t == 0:
         raise ValueError("NACA thickness must be greater than zero")
+    if m > 0 and p == 0:
+        raise ValueError(
+            "NACA camber position must be greater than zero when camber is non-zero"
+        )
 
     beta = np.linspace(0, np.pi, num_points)
     x = 0.5 * (1 - np.cos(beta))  

@@ -76,6 +76,19 @@ def test_zero_thickness_naca_raises():
         generate_naca_airfoil("4400", 0.0)
 
 
+def test_cambered_naca_with_zero_position_raises():
+    # camber position 0 means the camber line is never applied (the
+    # `p > 0` branch is skipped), so "4012" silently builds the same
+    # symmetric airfoil as "0012" despite the 4% camber digit
+    with pytest.raises(ValueError, match="camber position"):
+        generate_naca_airfoil("4012", 0.0)
+    with pytest.raises(ValueError, match="camber position"):
+        generate_naca_airfoil("9012", 0.0)
+    # zero camber with position 0 is the symmetric case and still builds
+    mesh = generate_naca_airfoil("0012", 0.0, num_points=60)
+    assert mesh.n_points > 0
+
+
 def test_minimal_thickness_still_builds():
     mesh = generate_naca_airfoil("0001", 0.0, num_points=60)
     ys = mesh.points[:, 1]
