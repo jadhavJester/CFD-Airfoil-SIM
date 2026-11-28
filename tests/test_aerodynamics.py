@@ -47,6 +47,15 @@ def test_aero_estimates_fields():
     assert est["p_dyn"] == pytest.approx(0.5 * 1.225 * (30.0 ** 2 - 20.0 ** 2))
 
 
+def test_aero_estimates_rejects_invalid_naca():
+    # the public entry point validates through camber_ratio; an invalid
+    # string must fail here, not produce estimates for a phantom airfoil
+    with pytest.raises(ValueError):
+        aero_estimates("12", 5.0, 20.0)
+    with pytest.raises(ValueError):
+        aero_estimates("abcd", 5.0, 20.0)
+
+
 def test_forces_scale_with_speed_squared():
     slow = aero_estimates("4412", 5.0, 10.0)
     fast = aero_estimates("4412", 5.0, 20.0)
