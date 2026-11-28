@@ -51,3 +51,17 @@ def test_update_simulation_steps_solver(app_window):
     app_window.run_simulation()
     app_window.update_simulation()
     assert app_window.fluid_solver.final_vel.shape[1] == 3
+
+
+def test_run_simulation_invalid_naca_clears_stale_stats(app_window):
+    app_window.run_simulation()
+    assert app_window.lbl_lift.text() != "0.00 N"
+    assert app_window.fluid_solver is not None
+    app_window.naca_input.setText("abcd")
+    app_window.run_simulation()
+    # the rejected input must not leave the previous run's numbers on screen
+    assert app_window.fluid_solver is None
+    for lbl in (app_window.lbl_vmax, app_window.lbl_press, app_window.lbl_lift,
+                app_window.lbl_drag, app_window.lbl_weight, app_window.lbl_thrust):
+        assert lbl.text() == "—"
+    app_window.naca_input.setText("4412")

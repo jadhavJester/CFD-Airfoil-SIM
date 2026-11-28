@@ -113,6 +113,13 @@ class WindTunnelApp(QMainWindow):
             airfoil_mesh = generate_naca_airfoil(naca, aoa)
         except Exception as e:
             print(f"Error: {e}")
+            # Don't leave the previous run's numbers and mesh on screen
+            # as if they belonged to the rejected input.
+            self.fluid_solver = None
+            self.plotter.clear()
+            for lbl in (self.lbl_vmax, self.lbl_press, self.lbl_lift,
+                        self.lbl_drag, self.lbl_weight, self.lbl_thrust):
+                lbl.setText("—")
             return
         
         # Aerodynamics estimates (simplified lift/drag model in aerodynamics.py)
